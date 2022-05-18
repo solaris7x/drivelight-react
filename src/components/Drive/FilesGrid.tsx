@@ -1,25 +1,26 @@
+import { useNavigate } from "react-router-dom";
 import prettyBytes from "../../utils/prettyBytes";
-import { driveFileType } from "../functions/driveFolder";
+import { driveFileType, driveFolderInfo } from "../functions/driveFolder";
+import onFileClick from "../functions/onFileClick";
+import FileItem from "./FileItem";
 
 interface FilesGridProps {
   files: driveFileType[];
+  setFolderInfo: React.Dispatch<React.SetStateAction<driveFolderInfo | null>>;
 }
 
 const FilesGrid = (props: FilesGridProps) => {
+  const navigate = useNavigate();
   return (
-    <div className="mt-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="mt-6 md:mx-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
         {props.files.map((file: driveFileType) => (
-          <div key={file.id} className="col-span-1">
-            <div className="bg-white text-gray-600 rounded-lg shadow-lg p-4">
-              <div className="flex justify-between items-center">
-                <div className="text-2xl font-bold">{file.name}</div>
-                <div className="text-sm text-gray-600">
-                  {file.size ? prettyBytes(file.size) : "NA"}
-                </div>
-              </div>
-              <div className="text-sm font-semibold">{file.mimeType}</div>
-            </div>
+          <div key={file.id} className="col-span-1 relative">
+            <FileItem
+              {...file}
+              navigate={navigate}
+              setFolderInfo={props.setFolderInfo}
+            />
           </div>
         ))}
       </div>

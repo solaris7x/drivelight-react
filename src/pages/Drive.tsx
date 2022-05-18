@@ -53,7 +53,7 @@ const Drive = () => {
         // Show file list
         <>
           <h2 className="text-2xl font-semibold">Folder : {folderInfo.name}</h2>
-          <FilesGrid files={folderInfo.files} />
+          <FilesGrid files={folderInfo.files} setFolderInfo={setFolderInfo} />
         </>
       )}
     </div>
