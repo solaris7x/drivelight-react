@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ErrorDiv from "./components/utils/ErrorDiv";
 import Drive from "./pages/Drive";
 import Home from "./pages/Home";
+import Oauth from "./pages/Oauth";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <Route path="/teamdrive" element={<Drive />}>
           <Route path=":teamDriveId/:folderId" element={<Drive />} />
         </Route>
+        <Route path="/oauth" element={<Oauth />} />
         {/* Default Route */}
         <Route
           path="*"

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { driveFileType, driveFolderInfo } from "../functions/driveFolder";
+import { driveFileType, driveFolderInfo } from "./driveFolder";
 import FileItem from "./FileItem";
 
 interface FilesGridProps {

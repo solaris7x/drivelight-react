@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { NavigateFunction } from "react-router-dom";
 import prettyBytes from "../../utils/prettyBytes";
-import { driveFolderInfo } from "../functions/driveFolder";
+import { driveFolderInfo } from "./driveFolder";
 import onFileClick from "../functions/onFileClick";
 
 interface FileItemProps {

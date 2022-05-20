@@ -4,7 +4,7 @@ import FilesGrid from "../components/Drive/FilesGrid";
 import driveFolder, {
   driveFileType,
   driveFolderInfo,
-} from "../components/functions/driveFolder";
+} from "../components/Drive/driveFolder";
 import LoadingDiv from "../components/utils/LoadingDiv";
 import ErrorDiv from "../components/utils/ErrorDiv";
 

@@ -1,5 +1,5 @@
 import { NavigateFunction } from "react-router-dom";
-import { driveFolderInfo } from "./driveFolder";
+import { driveFolderInfo } from "../Drive/driveFolder";
 
 const onFileClick = (
   fileId: string,
