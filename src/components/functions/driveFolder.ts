@@ -15,13 +15,18 @@ export interface driveFolderInfo {
 }
 
 const driveFolder = async (
-  folderId: string,
+  folderId?: string,
   teamDriveId?: string
 ): Promise<driveFolderInfo> => {
   try {
     // folderId = "1FyDCCp8Ebbq62br1-IY_tIfzF6PvvMB5";
     // folderId = "1u7h3n-lTA6HVLhT6uNR3M_fTdgbni00s";
     // console.log(folderId);
+
+    // If no folderId is provided, return
+    if (!folderId) {
+      throw new Error("No folderId provided");
+    }
 
     // Check if folderId is valid and type is folder
     // https://www.googleapis.com/drive/v3/files/

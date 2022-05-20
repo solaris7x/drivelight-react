@@ -21,7 +21,7 @@ const Drive = () => {
       try {
         // Route cannot be null as handled by router
         // Set folder info
-        setFolderInfo(await driveFolder(folderId!, teamDriveId));
+        setFolderInfo(await driveFolder(folderId, teamDriveId));
         // setFolderInfo(
         //   await driveFolder(
         //     "1xkCNLZHEunmDYZFp4jrJHnJoiMzXts2u",
@@ -31,7 +31,7 @@ const Drive = () => {
         // Clear error
         setError(null);
       } catch (err: any) {
-        console.error(err);
+        // console.error(err);
         // Clear existing state
         setFolderInfo(null);
         // Set error
