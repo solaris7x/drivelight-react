@@ -4,7 +4,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import ErrorDiv from "../components/utils/ErrorDiv";
 import LoadingDiv from "../components/utils/LoadingDiv";
 
-import { tokenObject } from "../context/GApi";
+import { OAuthTokenObject, OAuthTokenResponse } from "../context/OAuthContext";
 import { hasAllProperties } from "../utils/hasAllProperties";
 
 const Oauth = () => {
@@ -50,7 +50,7 @@ const Oauth = () => {
 
         if (
           !res.ok ||
-          !hasAllProperties<tokenObject>(resJSON, [
+          !hasAllProperties<OAuthTokenResponse>(resJSON, [
             "access_token",
             "expires_in",
             "refresh_token",
@@ -65,7 +65,7 @@ const Oauth = () => {
         localStorage.setItem("G_access_token", resJSON.access_token);
         localStorage.setItem(
           "G_expires_at",
-          (Date.now() + resJSON.expires_in).toString()
+          (Math.floor(Date.now() / 1000) + resJSON.expires_in).toString()
         );
         localStorage.setItem("G_refresh_token", resJSON.refresh_token);
         localStorage.setItem("G_scope", resJSON.scope);
@@ -97,13 +97,13 @@ const Oauth = () => {
             You can now use tokens for direct access to your drive
           </div>
           {/* // Go Home */}
-          <Link to="/">
+          <a href="/">
             <div className="text-xl text-center">
               <button className="text-pink-700 bg-white font-bold py-2 px-4 rounded-full">
                 Go Home
               </button>
             </div>
-          </Link>
+          </a>
         </div>
       )}
     </div>
