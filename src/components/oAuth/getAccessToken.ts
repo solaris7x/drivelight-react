@@ -1,4 +1,4 @@
-import { OAuthTokenObject } from "../../context/OAuthContext";
+import { OAuthTokenObject } from "../../pages/Oauth";
 import refreshAccessToken from "./refreshAccessToken";
 
 const getAccessToken = async (

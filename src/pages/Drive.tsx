@@ -1,14 +1,21 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import FilesGrid from "../components/Drive/FilesGrid";
-import driveFolder, {
-  driveFileType,
-  driveFolderInfo,
-} from "../components/Drive/driveFolder";
+
+import driveFolder, { driveFolderInfo } from "../components/Drive/driveFolder";
 import LoadingDiv from "../components/utils/LoadingDiv";
 import ErrorDiv from "../components/utils/ErrorDiv";
 
-const Drive = () => {
+import { OAuthTokenObject } from "./Oauth";
+
+interface DriveProps {
+  oauthToken: OAuthTokenObject | undefined;
+  setOauthToken: React.Dispatch<
+    React.SetStateAction<OAuthTokenObject | undefined>
+  >;
+}
+
+const Drive = (props: DriveProps) => {
   // Get drive folder ID
   const { teamDriveId, folderId } = useParams();
 
@@ -19,7 +26,11 @@ const Drive = () => {
   useEffect(() => {
     const fetchFolder = async () => {
       try {
-        // Route cannot be null as handled by router
+        // If no folderId is provided, return
+        if (!folderId) {
+          setError("No folder ID provided");
+          return;
+        }
         // Set folder info
         setFolderInfo(await driveFolder(folderId, teamDriveId));
         // setFolderInfo(

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { NavigateFunction } from "react-router-dom";
 import prettyBytes from "../../utils/prettyBytes";
 import { driveFolderInfo } from "./driveFolder";
-import onFileClick from "../functions/onFileClick";
+import onFileClick from "./onFileClick";
 
 interface FileItemProps {
   id: string;
@@ -16,7 +16,7 @@ interface FileItemProps {
 const FileItem = (props: FileItemProps) => {
   const [linkCopied, setLinkCopied] = useState(false);
 
-  const isFolder = props.mimeType == "application/vnd.google-apps.folder";
+  // const isFolder = props.mimeType == "application/vnd.google-apps.folder";
 
   return (
     <>

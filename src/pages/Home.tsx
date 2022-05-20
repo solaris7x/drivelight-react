@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import getOauthUrl from "../components/functions/getOauthUrl";
+import getOauthUrl from "../components/oAuth/getOauthUrl";
 
 const Home = () => {
   return (

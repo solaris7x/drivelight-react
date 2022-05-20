@@ -4,10 +4,28 @@ import { Link, useSearchParams } from "react-router-dom";
 import ErrorDiv from "../components/utils/ErrorDiv";
 import LoadingDiv from "../components/utils/LoadingDiv";
 
-import { OAuthTokenObject, OAuthTokenResponse } from "../context/OAuthContext";
 import { hasAllProperties } from "../utils/hasAllProperties";
 
-const Oauth = () => {
+export interface OAuthTokenResponse {
+  access_token: string;
+  expires_in: number;
+  refresh_token: string;
+  scope: string;
+  token_type: string;
+}
+
+export interface OAuthTokenObject
+  extends Omit<OAuthTokenResponse, "expires_in"> {
+  expires_at: number;
+}
+
+export interface OauthProps {
+  setOauthToken: React.Dispatch<
+    React.SetStateAction<OAuthTokenObject | undefined>
+  >;
+}
+
+const Oauth = (props: OauthProps) => {
   const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(searchParams.get("error"));
@@ -61,6 +79,10 @@ const Oauth = () => {
           throw new Error("Invalid refresh token response");
         }
 
+        const oAuthToken: OAuthTokenObject = {
+          ...resJSON,
+          expires_at: Math.floor(Date.now() / 1000) + resJSON.expires_in,
+        };
         // Store tokens in local storage
         localStorage.setItem("G_access_token", resJSON.access_token);
         localStorage.setItem(

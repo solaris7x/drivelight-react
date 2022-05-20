@@ -1,7 +1,4 @@
-import {
-  OAuthTokenObject,
-  OAuthTokenResponse,
-} from "../../context/OAuthContext";
+import { OAuthTokenObject, OAuthTokenResponse } from "../../pages/Oauth";
 import { hasAllProperties } from "../../utils/hasAllProperties";
 
 const refreshAccessToken = async (
