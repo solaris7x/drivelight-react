@@ -1,20 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+
 import ErrorDiv from "../components/utils/ErrorDiv";
 import LoadingDiv from "../components/utils/LoadingDiv";
-import { hasAllProperties } from "../utils/hasAllProperties";
 
-interface tokenObject {
-  access_token: string;
-  expires_in: number;
-  refresh_token: string;
-  scope: string;
-  token_type: string;
-}
+import { tokenObject } from "../context/GApi";
+import { hasAllProperties } from "../utils/hasAllProperties";
 
 const Oauth = () => {
   const [searchParams] = useSearchParams();
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(searchParams.get("error"));
 
@@ -90,29 +84,28 @@ const Oauth = () => {
       <Link to="/">
         <div className="text-4xl font-bold text-center my-8">DriveLight</div>
       </Link>
-      {/* {error ? (
+      {error ? (
         <ErrorDiv title={error} />
       ) : loading ? (
         <LoadingDiv text="😎 Exchanging super secret codes 😎" />
       ) : (
-        <div>Got your tokens</div>
-        )} */}
-      <div className="flex flex-col gap-4">
-        <div className="text-3xl font-bold text-center">
-          😁 Stored your tokens in browser storage 😁
-        </div>
-        <div className="text-xl text-center">
-          You can now use tokens for direct access to your drive
-        </div>
-        {/* // Go Home */}
-        <Link to="/">
-          <div className="text-xl text-center">
-            <button className="text-pink-700 bg-white font-bold py-2 px-4 rounded-full">
-              Go Home
-            </button>
+        <div className="flex flex-col gap-4">
+          <div className="text-3xl font-bold text-center">
+            😁 Stored your tokens in browser storage 😁
           </div>
-        </Link>
-      </div>
+          <div className="text-xl text-center">
+            You can now use tokens for direct access to your drive
+          </div>
+          {/* // Go Home */}
+          <Link to="/">
+            <div className="text-xl text-center">
+              <button className="text-pink-700 bg-white font-bold py-2 px-4 rounded-full">
+                Go Home
+              </button>
+            </div>
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

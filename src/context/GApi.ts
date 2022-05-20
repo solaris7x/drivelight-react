@@ -1,0 +1,11 @@
+import { createContext } from "react";
+
+export interface tokenObject {
+  access_token: string;
+  expires_in: number;
+  refresh_token: string;
+  scope: string;
+  token_type: string;
+}
+
+export const GApiContext = createContext<tokenObject | undefined>(undefined);
