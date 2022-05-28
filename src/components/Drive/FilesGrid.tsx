@@ -3,6 +3,7 @@ import { driveFileType, driveFolderInfo } from "./driveFolder";
 import FileItem from "./FileItem";
 
 interface FilesGridProps {
+  authParamString: string;
   files: driveFileType[];
   setFolderInfo: React.Dispatch<React.SetStateAction<driveFolderInfo | null>>;
 }
@@ -15,6 +16,7 @@ const FilesGrid = (props: FilesGridProps) => {
         {props.files.map((file: driveFileType) => (
           <div key={file.id} className="col-span-1 relative">
             <FileItem
+              authParamString={props.authParamString}
               {...file}
               navigate={navigate}
               setFolderInfo={props.setFolderInfo}

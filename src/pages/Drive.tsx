@@ -1,27 +1,21 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import FilesGrid from "../components/Drive/FilesGrid";
 
 import driveFolder, { driveFolderInfo } from "../components/Drive/driveFolder";
 import LoadingDiv from "../components/utils/LoadingDiv";
 import ErrorDiv from "../components/utils/ErrorDiv";
+import AuthContext from "../context/AuthContext";
 
-import { OAuthTokenObject } from "./Oauth";
-
-interface DriveProps {
-  oauthToken: OAuthTokenObject | undefined;
-  setOauthToken: React.Dispatch<
-    React.SetStateAction<OAuthTokenObject | undefined>
-  >;
-}
-
-const Drive = (props: DriveProps) => {
+const Drive = () => {
   // Get drive folder ID
   const { teamDriveId, folderId } = useParams();
 
   const [folderInfo, setFolderInfo] = useState<driveFolderInfo | null>(null);
 
   const [error, setError] = useState<string | null>(null);
+
+  const auth = useContext(AuthContext);
 
   useEffect(() => {
     const fetchFolder = async () => {
@@ -32,7 +26,9 @@ const Drive = (props: DriveProps) => {
           return;
         }
         // Set folder info
-        setFolderInfo(await driveFolder(folderId, teamDriveId));
+        setFolderInfo(
+          await driveFolder(auth.paramString, folderId, teamDriveId)
+        );
         // setFolderInfo(
         //   await driveFolder(
         //     "1xkCNLZHEunmDYZFp4jrJHnJoiMzXts2u",
@@ -64,7 +60,11 @@ const Drive = (props: DriveProps) => {
         // Show file list
         <>
           <h2 className="text-2xl font-semibold">Folder : {folderInfo.name}</h2>
-          <FilesGrid files={folderInfo.files} setFolderInfo={setFolderInfo} />
+          <FilesGrid
+            authParamString={auth.paramString}
+            files={folderInfo.files}
+            setFolderInfo={setFolderInfo}
+          />
         </>
       )}
     </div>

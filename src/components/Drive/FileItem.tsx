@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { NavigateFunction } from "react-router-dom";
+import { NavigateFunction, useLocation } from "react-router-dom";
 import prettyBytes from "../../utils/prettyBytes";
 import { driveFolderInfo } from "./driveFolder";
 import onFileClick from "./onFileClick";
 
 interface FileItemProps {
+  authParamString: string;
   id: string;
   name: string;
   mimeType: string;
@@ -15,6 +16,12 @@ interface FileItemProps {
 
 const FileItem = (props: FileItemProps) => {
   const [linkCopied, setLinkCopied] = useState(false);
+
+  const location = useLocation();
+
+  // Get parent path
+  const _locationList = location.pathname.split("/");
+  const parentPath = _locationList.slice(0, _locationList.length - 1).join("/");
 
   // const isFolder = props.mimeType == "application/vnd.google-apps.folder";
 
@@ -43,9 +50,11 @@ const FileItem = (props: FileItemProps) => {
 
           onClick={() => {
             onFileClick(
+              props.authParamString,
               props.id,
               props.mimeType,
               props.navigate,
+              parentPath,
               props.setFolderInfo,
               setLinkCopied
             );

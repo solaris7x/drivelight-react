@@ -2,9 +2,11 @@ import { NavigateFunction } from "react-router-dom";
 import { driveFolderInfo } from "./driveFolder";
 
 const onFileClick = (
+  authParamString: string,
   fileId: string,
   mimetype: string,
   navigate: NavigateFunction,
+  parentPath: string,
   setFolderInfo: React.Dispatch<React.SetStateAction<driveFolderInfo | null>>,
   setLinkCopied: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
@@ -14,14 +16,12 @@ const onFileClick = (
     // Set folder info to null/loading
     setFolderInfo(null);
     // Navigate to folder
-    navigate(`/${fileId}`);
+    navigate(`${parentPath}/${fileId}`);
   } else {
     // Copy link to clipboard
     // FIXME: Not working on mobile
     navigator.clipboard.writeText(
-      `https://www.googleapis.com/drive/v3/files/${fileId}?key=${
-        import.meta.env.VITE_GAPIKEY
-      }&supportsAllDrives=true&alt=media`
+      `https://www.googleapis.com/drive/v3/files/${fileId}?${authParamString}&supportsAllDrives=true&alt=media`
     );
     // Set link copied to true with timeout 1500ms
     setLinkCopied(true);

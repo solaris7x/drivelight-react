@@ -5,6 +5,7 @@ interface driveListFolderOptions {
 
 const driveListFolder = async (
   query: string,
+  authParamString: string,
   options?: driveListFolderOptions
 ) => {
   // Request Params
@@ -27,9 +28,7 @@ const driveListFolder = async (
       }).toString();
 
   // Convert Params to Query String
-  const requestURI = `https://www.googleapis.com/drive/v3/files?key=${
-    import.meta.env.VITE_GAPIKEY
-  }&${paramsString}`;
+  const requestURI = `https://www.googleapis.com/drive/v3/files?${authParamString}&${paramsString}`;
   // console.log(requestURI)
 
   // Fetch Drive file details

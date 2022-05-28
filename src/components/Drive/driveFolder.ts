@@ -15,6 +15,7 @@ export interface driveFolderInfo {
 }
 
 const driveFolder = async (
+  authParamString: string,
   folderId: string,
   teamDriveId?: string
 ): Promise<driveFolderInfo> => {
@@ -37,9 +38,7 @@ const driveFolder = async (
           fields: "id, name, mimeType, size",
         }).toString();
     const driveFolder = await fetch(
-      `https://www.googleapis.com/drive/v3/files/${folderId}?key=${
-        import.meta.env.VITE_GAPIKEY
-      }&${paramsString}`,
+      `https://www.googleapis.com/drive/v3/files/${folderId}?${authParamString}&${paramsString}`,
       {
         headers: {
           Referer: import.meta.env.VITE_GAPIREFERER,
@@ -69,6 +68,7 @@ const driveFolder = async (
     // Get folder content
     const driveFolderRes = await driveListFolder(
       `'${driveFolderJSON.id}' in parents and trashed = false`,
+      authParamString,
       {
         teamDriveId,
       }
