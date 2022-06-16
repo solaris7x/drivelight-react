@@ -89,6 +89,8 @@ const driveFolder = async (
       throw new Error("Failed to fetch folder content");
     }
 
+    // TODO: Resolve shortcuts
+
     // console.log(folderContent);
     return { name: driveFolderJSON.name, files: folderContent };
   } catch (err) {

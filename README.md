@@ -11,3 +11,4 @@ TODO:
 - Support page list
 - Add auth context switcher
 - Oauth token refresh
+- Add drive shortcut resolution
