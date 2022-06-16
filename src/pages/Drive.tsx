@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import FilesGrid from "../components/Drive/FilesGrid";
 
 import driveFolder, { driveFolderInfo } from "../components/Drive/driveFolder";
@@ -50,7 +50,11 @@ const Drive = () => {
 
   return (
     <div className="bg-pink-700 text-white p-8 min-h-screen">
-      <h1 className="text-4xl font-bold text-center pb-6 w-full">DriveLight</h1>
+      <Link to="/">
+        <h1 className="text-4xl font-bold text-center pb-6 w-full">
+          DriveLight
+        </h1>
+      </Link>
       {error ? (
         <ErrorDiv message={error} />
       ) : !folderInfo ? (
