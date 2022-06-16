@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import ErrorDiv from "./components/utils/ErrorDiv";
 import AuthContext, {
   AuthContextType,
@@ -69,9 +69,11 @@ const App = () => {
             path="*"
             element={
               <div className="bg-pink-700 text-white flex flex-col justify-center items-center min-h-screen">
-                <div className="text-4xl py-8 font-bold text-center">
-                  DriveLight
-                </div>
+                <Link to="/">
+                  <div className="text-4xl py-8 font-bold text-center">
+                    DriveLight
+                  </div>
+                </Link>
                 <ErrorDiv message="Lost?" />
               </div>
             }
