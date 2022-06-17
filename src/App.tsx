@@ -1,14 +1,18 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+
+import Drive from "./pages/Drive";
+import Home from "./pages/Home";
+import Oauth, { OAuthTokenObject } from "./pages/Oauth";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsAndConditions from "./pages/TermsAndConditions";
 import ErrorDiv from "./components/utils/ErrorDiv";
+
+import { hasAllProperties } from "./utils/hasAllProperties";
 import AuthContext, {
   AuthContextType,
   AuthContextEnum,
 } from "./context/AuthContext";
-import Drive from "./pages/Drive";
-import Home from "./pages/Home";
-import Oauth, { OAuthTokenObject } from "./pages/Oauth";
-import { hasAllProperties } from "./utils/hasAllProperties";
 
 const App = () => {
   // Get tokens from local storage
@@ -63,6 +67,12 @@ const App = () => {
           <Route
             path="/oauth"
             element={<Oauth setOauthToken={setOauthToken} />}
+          />
+          {/* Other Routes */}
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route
+            path="/terms-and-conditions"
+            element={<TermsAndConditions />}
           />
           {/* Default Route */}
           <Route
