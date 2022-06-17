@@ -1,9 +1,18 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+
 import getOauthUrl from "../components/oAuth/getOauthUrl";
+import { OAuthTokenObject } from "./Oauth";
+
 import AuthContext, { AuthContextEnum } from "../context/AuthContext";
 
-const Home = () => {
+interface HomeProps {
+  setOauthToken: React.Dispatch<
+    React.SetStateAction<OAuthTokenObject | undefined>
+  >;
+}
+
+const Home = (props: HomeProps) => {
   const auth = useContext(AuthContext);
   return (
     <div className="bg-pink-700 text-white flex flex-col justify-center items-center gap-4 min-h-screen">
@@ -23,7 +32,18 @@ const Home = () => {
           </div>
         </a>
       ) : (
-        <button className="bg-white text-gray-600 text-lg p-3 shadow-lg rounded-lg">
+        <button
+          className="bg-white text-gray-600 text-lg p-3 shadow-lg rounded-lg"
+          onClick={() => {
+            // Clear token from localDB
+            localStorage.removeItem("G_access_token");
+            localStorage.removeItem("G_expires_at");
+            localStorage.removeItem("G_refresh_token");
+            localStorage.removeItem("G_scope");
+            localStorage.removeItem("G_token_type");
+            props.setOauthToken(undefined);
+          }}
+        >
           <div className="">Clear local token</div>
         </button>
       )}

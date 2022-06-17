@@ -53,7 +53,7 @@ const App = () => {
     <AuthContext.Provider value={authContextValue}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home setOauthToken={setOauthToken} />} />
           <Route path="/drive" element={<Drive />}>
             <Route path=":folderId" element={<Drive />} />
           </Route>
