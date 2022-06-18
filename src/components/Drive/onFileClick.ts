@@ -1,7 +1,7 @@
 import { NavigateFunction } from "react-router-dom";
 import { driveFolderInfo } from "./driveFolder";
 
-const onFileClick = (
+const onFileClick = async (
   authParamString: string,
   fileId: string,
   mimetype: string,
@@ -18,11 +18,24 @@ const onFileClick = (
     // Navigate to folder
     navigate(`${parentPath}/${fileId}`);
   } else {
+    // Google API url with token
+    let clipboardUrl = `https://www.googleapis.com/drive/v3/files/${fileId}?${authParamString}&supportsAllDrives=true&alt=media`;
+    // Try Drive Web client endpoint
+    try {
+      const webRes = await fetch(
+        `https://voodoo.drivelight.ml/file?fileID=${fileId}`
+      );
+
+      // If successful then get link
+      if (webRes.ok) {
+        const voodooRes = await webRes.json();
+        if (voodooRes?.downloadUrl) clipboardUrl = voodooRes.downloadUrl;
+      }
+    } catch (error) {
+      console.log(error);
+    }
     // Copy link to clipboard
-    // FIXME: Not working on mobile
-    navigator.clipboard.writeText(
-      `https://www.googleapis.com/drive/v3/files/${fileId}?${authParamString}&supportsAllDrives=true&alt=media`
-    );
+    navigator.clipboard.writeText(clipboardUrl);
     // Set link copied to true with timeout 1500ms
     setLinkCopied(true);
     setTimeout(() => {
