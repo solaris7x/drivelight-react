@@ -23,7 +23,7 @@ const onFileClick = async (
     // Try Drive Web client endpoint
     try {
       const webRes = await fetch(
-        `https://voodoo.drivelight.ml/file?fileID=${fileId}`
+        `${import.meta.env.VITE_VOODOO_URI}?fileID=${fileId}`
       );
 
       // If successful then get link
