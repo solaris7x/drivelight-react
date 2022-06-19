@@ -6,8 +6,8 @@ import Home from "./pages/Home";
 import Oauth, { OAuthTokenObject } from "./pages/Oauth";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsAndConditions from "./pages/TermsAndConditions";
-import ErrorDiv from "./components/utils/ErrorDiv";
 
+import ErrorDiv from "./components/utils/ErrorDiv";
 import { hasAllProperties } from "./utils/hasAllProperties";
 import AuthContext, {
   AuthContextType,

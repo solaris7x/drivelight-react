@@ -38,12 +38,6 @@ const Drive = () => {
         setFolderInfo(
           await driveFolder(authParamString, folderId, teamDriveId)
         );
-        // setFolderInfo(
-        //   await driveFolder(
-        //     "1xkCNLZHEunmDYZFp4jrJHnJoiMzXts2u",
-        //     "0AFSlHKw2CFJ6Uk9PVA"
-        //   )
-        // );
         // Clear error
         setError(null);
       } catch (err: any) {
