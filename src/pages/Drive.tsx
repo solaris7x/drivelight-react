@@ -66,7 +66,12 @@ const Drive = () => {
       ) : (
         // Show file list
         <>
-          <h2 className="text-2xl font-semibold">Folder : {folderInfo.name}</h2>
+          <h2
+            className="text-2xl font-semibold overflow-hidden"
+            style={{ wordBreak: "break-all" }}
+          >
+            Folder : {folderInfo.name}
+          </h2>
           <FilesGrid
             authParamString={authParamString}
             files={folderInfo.files}

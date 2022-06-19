@@ -61,8 +61,13 @@ const FileItem = (props: FileItemProps) => {
           }}
         >
           <div className="flex justify-between items-center">
-            <div className="md:text-2xl font-bold">{props.name}</div>
-            <div className="text-sm text-gray-600">
+            <div
+              className="md:text-2xl font-bold w-5/6 overflow-hidden"
+              style={{ wordBreak: "break-all" }}
+            >
+              {props.name}
+            </div>
+            <div className="text-sm text-gray-600 w-1/6">
               {props.size ? prettyBytes(props.size) : "NA"}
             </div>
           </div>
