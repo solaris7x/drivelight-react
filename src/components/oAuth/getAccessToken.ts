@@ -8,7 +8,8 @@ const getAccessToken = async (
   >
 ) => {
   // Check if the access token is expired
-  if (Oauth.expires_at >= Date.now()) {
+  if (Oauth.expires_at <= Date.now() / 1000) {
+    // console.log("Refreshing access token");
     // If it is expired, refresh it
     return await refreshAccessToken(Oauth, setOauthToken);
   }

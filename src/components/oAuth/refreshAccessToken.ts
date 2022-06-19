@@ -25,15 +25,18 @@ const refreshAccessToken = async (
 
   const resJSON = await res.json();
 
+  // console.log(resJSON);
+
   // Throw if the request failed or response body is invalid
   if (
     !res.ok ||
-    !hasAllProperties<OAuthTokenResponse>(resJSON, [
+    !hasAllProperties<Omit<OAuthTokenResponse, "refresh_token">>(resJSON, [
       "access_token",
       "expires_in",
-      "refresh_token",
       "scope",
       "token_type",
+      // Refresh token is not returned for access token refresh
+      // "refresh_token",
     ])
   ) {
     throw new Error(resJSON?.error_description || "Could not refresh token");
@@ -45,12 +48,14 @@ const refreshAccessToken = async (
     "G_expires_at",
     (Math.floor(Date.now() / 1000) + resJSON.expires_in).toString()
   );
-  localStorage.setItem("G_refresh_token", resJSON.refresh_token);
+  // Refresh token is not returned for access token refresh
+  // localStorage.setItem("G_refresh_token", resJSON.refresh_token);
   localStorage.setItem("G_scope", resJSON.scope);
   localStorage.setItem("G_token_type", resJSON.token_type);
 
   // Update Oauth state
   setOauthToken({
+    ...Oauth,
     ...resJSON,
     expires_at: Math.floor(Date.now() / 1000) + resJSON.expires_in,
   });

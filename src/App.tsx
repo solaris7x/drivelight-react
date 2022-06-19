@@ -13,6 +13,7 @@ import AuthContext, {
   AuthContextType,
   AuthContextEnum,
 } from "./context/AuthContext";
+import getAccessToken from "./components/oAuth/getAccessToken";
 
 const App = () => {
   // Get tokens from local storage
@@ -42,15 +43,17 @@ const App = () => {
     ? {
         type: AuthContextEnum.Oauth2,
         key: oauthToken.access_token,
-        paramString: `access_token=${oauthToken.access_token}`,
-        refreshFunction: async () => {
-          console.log("Will refresh token");
+        paramString: async () => {
+          return `access_token=${await getAccessToken(
+            oauthToken,
+            setOauthToken
+          )}`;
         },
       }
     : {
         type: AuthContextEnum.API_KEY,
         key: import.meta.env.VITE_GAPIKEY,
-        paramString: `key=${import.meta.env.VITE_GAPIKEY}`,
+        paramString: () => `key=${import.meta.env.VITE_GAPIKEY}`,
       };
 
   return (

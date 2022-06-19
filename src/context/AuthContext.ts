@@ -3,8 +3,7 @@ import { createContext } from "react";
 export interface AuthContextType {
   type: AuthContextEnum;
   key: string;
-  paramString: string;
-  refreshFunction?: () => Promise<void>;
+  paramString: () => Promise<string> | string;
 }
 
 export enum AuthContextEnum {
@@ -15,7 +14,7 @@ export enum AuthContextEnum {
 const AuthContext = createContext<AuthContextType>({
   type: AuthContextEnum.API_KEY,
   key: import.meta.env.VITE_GAPIKEY,
-  paramString: `key=${import.meta.env.VITE_GAPIKEY}`,
+  paramString: () => `key=${import.meta.env.VITE_GAPIKEY}`,
 });
 
 export default AuthContext;

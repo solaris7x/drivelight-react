@@ -17,17 +17,26 @@ const Drive = () => {
 
   const auth = useContext(AuthContext);
 
+  // Get auth param string
+  const [authParamString, setAuthParamString] = useState<string | undefined>();
+
   useEffect(() => {
     const fetchFolder = async () => {
       try {
-        // If no folderId is provided, return
-        if (!folderId) {
-          setError("No folder ID provided");
+        setAuthParamString(await auth.paramString());
+        // console.log(authParamString);
+        // If no paramString available
+        if (!authParamString) {
+          // setError("No auth param string available");
           return;
+        }
+        // If no folderId is provided
+        if (!folderId) {
+          throw new Error("No folder ID provided");
         }
         // Set folder info
         setFolderInfo(
-          await driveFolder(auth.paramString, folderId, teamDriveId)
+          await driveFolder(authParamString, folderId, teamDriveId)
         );
         // setFolderInfo(
         //   await driveFolder(
@@ -42,11 +51,11 @@ const Drive = () => {
         // Clear existing state
         setFolderInfo(null);
         // Set error
-        setError(err?.message);
+        setError(err?.message || "Something broke, Call Felix");
       }
     };
     fetchFolder();
-  }, [folderId]);
+  }, [folderId, authParamString]);
 
   return (
     <div className="bg-pink-700 text-white p-8 min-h-screen">
@@ -57,7 +66,7 @@ const Drive = () => {
       </Link>
       {error ? (
         <ErrorDiv message={error} />
-      ) : !folderInfo ? (
+      ) : !folderInfo || !authParamString ? (
         //Loading
         <LoadingDiv />
       ) : (
@@ -65,7 +74,7 @@ const Drive = () => {
         <>
           <h2 className="text-2xl font-semibold">Folder : {folderInfo.name}</h2>
           <FilesGrid
-            authParamString={auth.paramString}
+            authParamString={authParamString}
             files={folderInfo.files}
             setFolderInfo={setFolderInfo}
           />

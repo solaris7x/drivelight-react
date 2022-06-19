@@ -10,7 +10,7 @@ const onFileClick = async (
   setFolderInfo: React.Dispatch<React.SetStateAction<driveFolderInfo | null>>,
   setLinkCopied: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
-  console.log("File Click");
+  // console.log("File Click");
   // If file is a folder then open it
   if (mimetype === "application/vnd.google-apps.folder") {
     // Set folder info to null/loading
